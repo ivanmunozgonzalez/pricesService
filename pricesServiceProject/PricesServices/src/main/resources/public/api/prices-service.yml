@@ -1,0 +1,50 @@
+openapi: 3.0.0
+
+servers:
+  - url: "/api/productPrice"
+
+info:
+  version: v1
+  title: PricesService - API
+  description: |-
+
+    This API offers endpoints for relations between prices, brand, and products
+
+  contact:
+    name: imunoz
+    email: imunozgonzalez@gmail.com
+
+paths:
+  /{productId}/{brandId}:
+    parameters:
+        - name: productId
+          in: path
+          description: |-
+            Product Id.
+          required: true
+          schema:
+            type: integer
+        - name: brandId
+          in: path
+          description: |-
+            Brand Id.
+          required: true
+          schema:
+            type: integer
+        - name: dateApplication
+          in: query
+          description: |-
+            Application date of price list. (yyyy-MM-dd'T'HH:mm:ss)
+          required: true
+          schema:
+            type: string
+
+    get:
+      summary: Get product's price
+      description: |-
+        Get product's price from productId, brandId and application date.
+      responses:
+        "200":
+          description: OK      
+        "404":
+          description: NOT FOUND          
