@@ -12,9 +12,9 @@ public class Brand {
     private String name;
 
     @Getter(AccessLevel.NONE)
-    private final String BRANDID_NAME = "brandId";
+    private static final String BRANDID_NAME = "brandId";
     @Getter(AccessLevel.NONE)
-    private final String NAME_NAME = "name";
+    private static final String NAME_NAME = "name";
 
     private Brand(Long brandId, String name) throws DomainException {
 	if (brandId == null) {

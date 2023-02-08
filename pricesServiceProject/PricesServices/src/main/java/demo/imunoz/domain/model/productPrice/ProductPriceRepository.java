@@ -9,6 +9,6 @@ import demo.imunoz.domain.model.productPrice.property.ProductPriceId;
 
 public interface ProductPriceRepository extends CommonRepository<ProductPrice, ProductPriceId> {
 
-    ProductPrice findProductPriceByDateAndPriority(LocalDateTime applicationDate, Long productId, Long brandId)
+    ProductPrice findFirstProductPriceByDateOrderByPriority(LocalDateTime applicationDate, Long productId, Long brandId)
 	    throws EntityNotFoundException, DomainException;
 }

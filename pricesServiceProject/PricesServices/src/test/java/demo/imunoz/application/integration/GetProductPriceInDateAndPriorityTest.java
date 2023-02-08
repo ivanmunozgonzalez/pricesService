@@ -16,7 +16,6 @@ import demo.imunoz.Application;
 import demo.imunoz.application.service.productPrice.useCase.GetProductPriceInDateAndPriority;
 import demo.imunoz.domain.exception.DomainException;
 import demo.imunoz.domain.exception.EntityNotFoundException;
-import demo.imunoz.domain.exception.MapperException;
 
 @SpringBootTest(classes = Application.class)
 @ExtendWith(MockitoExtension.class)
@@ -33,14 +32,14 @@ public class GetProductPriceInDateAndPriorityTest extends Mockito {
     private GetProductPriceInDateAndPriority tested;
 
     @Test
-    public void findPriceByIdProductIdBrandAndApplicationDateNotFound()
-	    throws EntityNotFoundException, MapperException, DomainException {
+    public void findPriceByIdProductIdBrandAndApplicationDateOrderPriorityDescNotFound()
+	    throws EntityNotFoundException, DomainException {
 	assertThrows(EntityNotFoundException.class, () -> tested.execute(PRODUCT_ID_FAIL, BRAND_ID, DATE_NOW));
     }
 
     @Test
-    public void findPriceByIdProductIdBrandAndApplicationDateFound()
-	    throws EntityNotFoundException, MapperException, DomainException {
+    public void findPriceByIdProductIdBrandAndApplicationDateOrderPriorityDescFound()
+	    throws EntityNotFoundException, DomainException {
 	assertNotNull(tested.execute(PRODUCT_ID, BRAND_ID, DATE_IN_RANGE));
     }
 }

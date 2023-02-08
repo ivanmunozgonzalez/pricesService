@@ -12,12 +12,10 @@ import javax.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @EqualsAndHashCode
 @NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "PRODUCT")
 public class ProductEntity implements Serializable {

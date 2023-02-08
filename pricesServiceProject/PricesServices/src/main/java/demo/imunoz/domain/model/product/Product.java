@@ -12,9 +12,9 @@ public class Product {
     private String name;
 
     @Getter(AccessLevel.NONE)
-    private final String PRODUCTID_NAME = "productId";
+    private static final String PRODUCTID_NAME = "productId";
     @Getter(AccessLevel.NONE)
-    private final String NAME_NAME = "name";
+    private static final String NAME_NAME = "name";
 
     private Product(Long productId, String name) throws DomainException {
 	if (productId == null) {

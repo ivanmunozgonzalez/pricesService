@@ -7,6 +7,7 @@ import static demo.imunoz.infrastructure.controller.Constants.PRODUCT_ID_PARAMET
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,6 @@ import demo.imunoz.application.service.productPrice.ProductPriceDTO;
 import demo.imunoz.application.service.productPrice.useCase.GetProductPriceInDateAndPriority;
 import demo.imunoz.domain.exception.DomainException;
 import demo.imunoz.domain.exception.EntityNotFoundException;
-import demo.imunoz.domain.exception.MapperException;
 
 @RestController
 @RequestMapping("/api/productPrice")
@@ -37,16 +37,18 @@ public class ProductPriceController {
 	    @PathVariable(value = PRODUCT_ID_PARAMETER, required = true) Long productId,
 	    @PathVariable(value = BRAND_ID_PARAMETER, required = true) Long brandId,
 	    @RequestParam(value = DATE_APPLICATION_PARAMETER, required = true) String applicationDate)
-	    throws MapperException, DomainException {
+	    throws DomainException {
 
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT_PRODUCT_PRICE);
-	LocalDateTime applicationDateFormated = LocalDateTime.parse(applicationDate, formatter);
 
 	try {
+	    LocalDateTime applicationDateFormated = LocalDateTime.parse(applicationDate, formatter);
 	    return ResponseEntity.status(HttpStatus.OK)
 		    .body(getProductPriceInDateAndPriority.execute(productId, brandId, applicationDateFormated));
 	} catch (EntityNotFoundException e) {
-	    return new ResponseEntity<ProductPriceDTO>(HttpStatus.NOT_FOUND);
+	    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	} catch (DateTimeParseException e) {
+	    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
     }
 }

@@ -1,7 +1,6 @@
 package demo.imunoz.infrastructure.persistence.productPrice.repository;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -27,12 +26,16 @@ public class ProductPriceH2Repository implements ProductPriceRepository {
 	this.productPriceEntityMapper = productPriceEntityMapper;
     }
 
-    public ProductPrice findProductPriceByDateAndPriority(LocalDateTime applicationDate, Long productId, Long brandId)
+    @Override
+    public ProductPrice findFirstProductPriceByDateOrderByPriority(LocalDateTime applicationDate, Long productId,
+	    Long brandId)
 	    throws EntityNotFoundException, DomainException {
-	List<ProductPriceEntity> productPricesEntity = productPriceJPARepository
-		.findProductPriceByProductAndBrandBetweenDate(applicationDate, productId, brandId);
-	if (!productPricesEntity.isEmpty()) {
-	    return productPriceEntityMapper.toModel(productPricesEntity.get(0));
+	ProductPriceEntity productPricesEntity =
+		productPriceJPARepository
+			.findTop1ByProductIdAndBrandIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(
+				productId, brandId, applicationDate, applicationDate);
+	if (productPricesEntity != null) {
+	    return productPriceEntityMapper.toModel(productPricesEntity);
 	} else {
 	    throw EntityNotFoundException.of(ProductPriceEntity.class.getName());
 	}

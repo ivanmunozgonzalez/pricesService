@@ -17,12 +17,10 @@ import demo.imunoz.infrastructure.persistence.product.ProductEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @EqualsAndHashCode
 @NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "PRODUCT_PRICE")
 public class ProductPriceEntity implements Serializable {

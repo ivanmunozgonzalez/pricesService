@@ -24,23 +24,23 @@ public class ProductPrice {
     private Brand brand;
 
     @Getter(AccessLevel.NONE)
-    private final String PRODUCT_NAME = "product";
+    private static final String PRODUCT_NAME = "product";
     @Getter(AccessLevel.NONE)
-    private final String STARTDATE_NAME = "startDate";
+    private static final String STARTDATE_NAME = "startDate";
     @Getter(AccessLevel.NONE)
-    private final String ENDDATE_NAME = "endDate";
+    private static final String ENDDATE_NAME = "endDate";
     @Getter(AccessLevel.NONE)
-    private final String STARTDATE_ENDDATE_NAME = "startDate and endDate";
+    private static final String STARTDATE_ENDDATE_NAME = "startDate and endDate";
     @Getter(AccessLevel.NONE)
-    private final String PRICELIST_NAME = "priceList";
+    private static final String PRICELIST_NAME = "priceList";
     @Getter(AccessLevel.NONE)
-    private final String PRIORITY_NAME = "priority";
+    private static final String PRIORITY_NAME = "priority";
     @Getter(AccessLevel.NONE)
-    private final String PRICE_NAME = "price";
+    private static final String PRICE_NAME = "price";
     @Getter(AccessLevel.NONE)
-    private final String CURR_NAME = "curr";
+    private static final String CURR_NAME = "curr";
     @Getter(AccessLevel.NONE)
-    private final String BRAND_NAME = "brand";
+    private static final String BRAND_NAME = "brand";
 
     private ProductPrice(Product product, LocalDateTime startDate, LocalDateTime endDate, Long priceList, Long priority,
 	    Double price, String curr, Brand brand) throws DomainException {
