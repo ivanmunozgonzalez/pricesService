@@ -35,7 +35,7 @@ public class ProductPriceH2Repository implements ProductPriceRepository {
 		if (productPricesEntity != null) {
 			return productPriceEntityMapper.toModel(productPricesEntity);
 		} else {
-			throw EntityNotFoundException.of(ProductPriceEntity.class.getName());
+			throw EntityNotFoundException.of(ProductPriceEntity.class.getSimpleName());
 		}
 	}
 }
