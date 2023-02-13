@@ -15,30 +15,27 @@ import demo.imunoz.infrastructure.persistence.productPrice.ProductPriceEntityMap
 @Repository
 public class ProductPriceH2Repository implements ProductPriceRepository {
 
-    private final ProductPriceJPARepository productPriceJPARepository;
+	private final ProductPriceJPARepository productPriceJPARepository;
 
-    private final ProductPriceEntityMapper productPriceEntityMapper;
+	private final ProductPriceEntityMapper productPriceEntityMapper;
 
-    @Autowired
-    public ProductPriceH2Repository(final ProductPriceJPARepository productPriceJPARepository,
-	    ProductPriceEntityMapper productPriceEntityMapper) {
-	this.productPriceJPARepository = productPriceJPARepository;
-	this.productPriceEntityMapper = productPriceEntityMapper;
-    }
-
-    @Override
-    public ProductPrice findFirstProductPriceByDateOrderByPriority(LocalDateTime applicationDate, Long productId,
-	    Long brandId)
-	    throws EntityNotFoundException, DomainException {
-	ProductPriceEntity productPricesEntity =
-		productPriceJPARepository
-			.findTop1ByProductIdAndBrandIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(
-				productId, brandId, applicationDate, applicationDate);
-	if (productPricesEntity != null) {
-	    return productPriceEntityMapper.toModel(productPricesEntity);
-	} else {
-	    throw EntityNotFoundException.of(ProductPriceEntity.class.getName());
+	@Autowired
+	public ProductPriceH2Repository(final ProductPriceJPARepository productPriceJPARepository,
+			ProductPriceEntityMapper productPriceEntityMapper) {
+		this.productPriceJPARepository = productPriceJPARepository;
+		this.productPriceEntityMapper = productPriceEntityMapper;
 	}
-    }
 
+	@Override
+	public ProductPrice findFirstProductPriceByDateOrderByPriority(LocalDateTime applicationDate, Long productId,
+			Long brandId) throws EntityNotFoundException, DomainException {
+		ProductPriceEntity productPricesEntity = productPriceJPARepository
+				.findTop1ByProductIdAndBrandIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(
+						productId, brandId, applicationDate, applicationDate);
+		if (productPricesEntity != null) {
+			return productPriceEntityMapper.toModel(productPricesEntity);
+		} else {
+			throw EntityNotFoundException.of(ProductPriceEntity.class.getName());
+		}
+	}
 }
