@@ -1,5 +1,7 @@
 package demo.imunoz.infrastructure.controller;
 
+import java.util.Collections;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,17 +20,17 @@ public class ExceptionHelper extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(value = { EntityNotFoundException.class })
 	public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException ex, WebRequest request) {
-		return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+		return handleExceptionInternal(ex, Collections.singleton(ex.getMessage()), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
 	}
 
 	@ExceptionHandler(value = { DomainException.class })
 	public ResponseEntity<Object> handleDomainException(DomainException ex, WebRequest request) {
-		return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+		return handleExceptionInternal(ex, Collections.singleton(ex.getMessage()), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
 	}
 
 	@ExceptionHandler(value = { DateFormatException.class })
 	public ResponseEntity<Object> handleDateFormatException(DateFormatException ex, WebRequest request) {
-		return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+		return handleExceptionInternal(ex, Collections.singleton(ex.getMessage()), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
 	}
 
 }

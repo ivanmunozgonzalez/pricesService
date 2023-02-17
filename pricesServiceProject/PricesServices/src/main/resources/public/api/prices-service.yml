@@ -45,8 +45,65 @@ paths:
         Get product's price from productId, brandId and application date.
       responses:
         "200":
-          description: OK      
+          description: OK     
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductPriceSimple" 
         "400":
-          description: BAD REQUEST  
+          $ref: "#/components/responses/clientError" 
         "404":
-          description: NOT FOUND          
+          $ref: "#/components/responses/notFoundError"         
+
+components:
+  schemas:
+    ProductPriceSimple:
+       description: Product Price without priority
+       allOf:
+        - properties:
+            productId:
+              description: Product's identified
+              type: integer
+              maxLength: 19
+              minimum: 0
+              example: 1
+            startDate:
+              description: Start date applied
+              type: string
+              format: date-time
+              example: '2021-06-15T10:00:00'
+            endDate:
+              description: End date applied
+              type: string
+              format: date-time
+              example: '2021-06-16T10:00:00'  
+            priceList:
+              description: Price List identified
+              type: integer
+              maxLength: 19
+              minimum: 0
+              example: 1
+            price:
+              description: Price value
+              type: number
+              minimum: 0
+              example: 33.3
+            curr:
+              description: currency ISO
+              type: string
+              maxLength: 3
+              minLength: 0
+              example: 'EUR'
+            brandId:
+              description: Brand's identified
+              type: integer
+              maxLength: 19
+              minimum: 0
+              example: 1
+              
+  responses:
+    notFoundError:
+      description: Element not found
+    
+    clientError:
+      description: Client error
